@@ -1,0 +1,30 @@
+# Node.js
+node_modules/
+
+# Dependencias de producción que no deberían estar en el repositorio
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+
+# Entorno de desarrollo
+.env
+
+# Archivos generados por el sistema operativo
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Archivos de IDEs y editores
+.vscode/
+.idea/
+
+# Archivos de configuración de nodemon
+*.pid
+*.gz
+
+# Archivos generados por el sistema (Linux/Unix)
+*.swp
+
+
