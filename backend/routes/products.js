@@ -1,5 +1,5 @@
 import express from 'express';
-import { createProduct, getProducts, getProductById, updateProduct, deleteProduct } from '../controllers/productController.js';
+import { createProduct, getProducts, getProductById, updateProduct, deleteProduct,buyProduct } from '../controllers/productController.js';
 
 const router = express.Router();
 
@@ -17,5 +17,7 @@ router.put('/products/:id', updateProduct);
 
 // Ruta para eliminar un producto por ID
 router.delete('/products/:id', deleteProduct);
+
+router.put('/products/buy/:id', buyProduct);
 
 export default router;

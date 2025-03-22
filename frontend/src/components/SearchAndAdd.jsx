@@ -48,10 +48,9 @@ function SearchAndAdd({ onAddProduct }) {
             return;
         }
 
-        // Crear el objeto para enviar al backend, asegurándose de que el campo 'quantity' se envíe como 'initialQuantity'
         const productDataToSend = {
             ...productData,
-            initialQuantity: productData.quantity, // Aquí asignamos el valor de quantity a initialQuantity
+            initialQuantity: productData.quantity,
         };
 
         try {

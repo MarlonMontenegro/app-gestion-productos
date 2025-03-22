@@ -1,78 +1,130 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import SearchAndAdd from './components/SearchAndAdd';
-import ProductList from './components/ProductList'; // Importa tu nuevo componente ProductList
+import ProductList from './components/ProductList';
+import UpdateProductModal from './components/UpdateProductModal';
+import BuyProductModal from './components/BuyProductModal';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
 function App() {
     const [products, setProducts] = useState([]);
+    const [selectedProduct, setSelectedProduct] = useState(null);
+    const [showUpdateModal, setShowUpdateModal] = useState(false);
+    const [showBuyModal, setShowBuyModal] = useState(false);
 
-    // Obtener los productos desde la API
+    // Obtener productos
     const fetchProducts = async () => {
         try {
             const response = await axios.get('http://localhost:5000/api/products');
-            setProducts(response.data); // Actualiza el estado con los productos obtenidos
+            setProducts(response.data);
         } catch (error) {
             toast.error('Error al obtener los productos.');
         }
     };
 
     useEffect(() => {
-        fetchProducts(); // Llamar a fetchProducts cuando el componente se monta
+        fetchProducts();
     }, []);
 
-    // Función para agregar un producto
+    // Agregar producto
     const handleAddProduct = async (productData) => {
         try {
             await axios.post('http://localhost:5000/api/products', productData);
             toast.success('Producto agregado exitosamente!');
-            fetchProducts(); // Volver a cargar los productos después de agregar uno nuevo
+            fetchProducts();
         } catch (error) {
             toast.error('Error al agregar el producto.');
         }
     };
 
-    // Función para eliminar un producto
+    // Eliminar producto
     const handleDeleteProduct = async (productId) => {
         try {
             await axios.delete(`http://localhost:5000/api/products/${productId}`);
-            toast.success('Producto eliminado exitosamente!');
-            fetchProducts(); // Recargar productos después de eliminar uno
+            toast.success('Producto eliminado!');
+            fetchProducts();
         } catch (error) {
             toast.error('Error al eliminar el producto.');
         }
     };
 
-    // Función para actualizar un producto
-    const handleUpdateProduct = (product) => {
-        // Aquí puedes agregar lógica para abrir un modal o algo similar para actualizar el producto.
-        console.log('Actualizar producto', product);
-        // Actualmente solo mostramos el producto en consola.
+    // Actualizar producto
+    const handleUpdateProduct = async (productId, updatedData) => {
+        try {
+            await axios.put(`http://localhost:5000/api/products/${productId}`, updatedData);
+            toast.success('Producto actualizado!');
+            fetchProducts();
+        } catch (error) {
+            toast.error('Error al actualizar el producto.');
+        }
+    };
+
+// Comprar producto
+    const handleBuyProduct = async (productId, quantity) => {
+        try {
+            const product = products.find(p => p._id === productId);
+            const updatedData = { quantity: product.quantity - quantity };
+
+            await axios.put(`http://localhost:5000/api/products/${productId}`, updatedData);
+            toast.success('Compra realizada con éxito!');
+            fetchProducts();
+        } catch (error) {
+            toast.error('Error al realizar la compra.');
+        }
+    };
+
+    // Mostrar modal de actualización
+    const handleShowUpdateModal = (product) => {
+        setSelectedProduct(product);
+        setShowUpdateModal(true);
+    };
+
+    // Cerrar modal de actualización
+    const handleCloseUpdateModal = () => {
+        setShowUpdateModal(false);
+        setSelectedProduct(null);
+    };
+
+    // Mostrar modal de compra
+    const handleShowBuyModal = (product) => {
+        setSelectedProduct(product);
+        setShowBuyModal(true);
+    };
+
+    // Cerrar modal de compra
+    const handleCloseBuyModal = () => {
+        setShowBuyModal(false);
+        setSelectedProduct(null);
     };
 
     return (
         <>
-            {/* Navbar */}
-            <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+            <nav className="navbar navbar-dark bg-dark">
                 <div className="container">
                     <a className="navbar-brand" href="#">Gestor de Productos</a>
                 </div>
             </nav>
 
-            <main className="container mt-5 pt-5">
-                {/* Componente para agregar producto */}
+            <main className="container mt-4">
                 <SearchAndAdd onAddProduct={handleAddProduct} />
-
-                {/* Lista de productos */}
                 <ProductList
                     products={products}
                     onDeleteProduct={handleDeleteProduct}
-                    onUpdateProduct={handleUpdateProduct}
+                    onUpdateProduct={handleShowUpdateModal}
+                    onBuyProduct={handleShowBuyModal}
                 />
             </main>
+
+            {showUpdateModal && selectedProduct && (
+                <UpdateProductModal showModal={showUpdateModal} product={selectedProduct} onClose={handleCloseUpdateModal} onUpdateProduct={handleUpdateProduct} />
+            )}
+
+            {showBuyModal && selectedProduct && (
+                <BuyProductModal showModal={showBuyModal} product={selectedProduct} onClose={handleCloseBuyModal} onBuySuccess={fetchProducts} />
+            )}
 
             <ToastContainer />
         </>

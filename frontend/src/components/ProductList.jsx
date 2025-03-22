@@ -1,50 +1,40 @@
 import React from 'react';
 
-function ProductList({ products, onDeleteProduct, onUpdateProduct }) {
+function ProductList({ products, onDeleteProduct, onUpdateProduct, onBuyProduct }) {
     return (
         <div className="mt-4">
-            <h3>Lista de Productos</h3>
-            <table className="table table-striped">
-                <thead>
-                <tr>
-                    <th>Nombre</th>
-                    <th>Descripción</th>
-                    <th>Precio</th>
-                    <th>Cantidad</th>
-                    <th>Acciones</th>
-                </tr>
-                </thead>
-                <tbody>
-                {products.length === 0 ? (
-                    <tr>
-                        <td colSpan="5" className="text-center">No hay productos disponibles.</td>
-                    </tr>
-                ) : (
-                    products.map((product) => (
-                        <tr key={product._id}>
-                            <td>{product.name}</td>
-                            <td>{product.description}</td>
-                            <td>{product.price}</td>
-                            <td>{product.initialQuantity}</td>
-                            <td>
-                                <button
-                                    className="btn btn-warning btn-sm mr-2"
-                                    onClick={() => onUpdateProduct(product)}
-                                >
-                                    Actualizar
-                                </button>
-                                <button
-                                    className="btn btn-danger btn-sm"
-                                    onClick={() => onDeleteProduct(product._id)}
-                                >
-                                    Eliminar
-                                </button>
-                            </td>
-                        </tr>
-                    ))
-                )}
-                </tbody>
-            </table>
+            <h2 className="mb-3">Lista de Productos</h2>
+            <ul className="list-group">
+                {products.map((product) => (
+                    <li key={product._id} className="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <strong>{product.name}</strong> - {product.description}
+                            <br />
+                            <span className="text-muted">Precio: ${product.price} | Cantidad: {product.initialQuantity}</span>
+                        </div>
+                        <div>
+                            <button
+                                className="btn btn-primary btn-sm me-2"
+                                onClick={() => onUpdateProduct(product)}
+                            >
+                                Editar
+                            </button>
+                            <button
+                                className="btn btn-success btn-sm me-2"
+                                onClick={() => onBuyProduct(product)}
+                            >
+                                Comprar
+                            </button>
+                            <button
+                                className="btn btn-danger btn-sm"
+                                onClick={() => onDeleteProduct(product._id)}
+                            >
+                                Eliminar
+                            </button>
+                        </div>
+                    </li>
+                ))}
+            </ul>
         </div>
     );
 }
