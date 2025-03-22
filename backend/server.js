@@ -1,14 +1,23 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import mongoose from "mongoose";
+import cors from 'cors';  // Importa el paquete cors
 import productRoutes from './routes/products.js';
 
 dotenv.config();  // Cargar las variables de entorno desde .env
 
 const app = express();
-app.use(express.json());  // Habilitar el uso de JSON en las solicitudes
 
-app.use('/api', productRoutes);  // Usa las rutas definidas
+// Configura CORS para permitir solicitudes desde tu frontend
+app.use(cors({
+    origin: 'http://localhost:5173',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true,
+}));
+
+app.use(express.json());
+
+app.use('/api', productRoutes);
 
 // Conectar a MongoDB
 mongoose.connect(process.env.MONGODB_URI)

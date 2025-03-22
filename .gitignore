@@ -27,4 +27,12 @@ Thumbs.db
 # Archivos generados por el sistema (Linux/Unix)
 *.swp
 
+# Archivos de lock de dependencias
+yarn.lock
+package-lock.json
 
+# Archivos de pruebas de cobertura (ej. Jest)
+coverage/
+
+# Archivos de caché de npm
+.npm/

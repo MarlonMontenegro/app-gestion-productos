@@ -1,0 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+
+body {
+    font-family: "Open Sans", sans-serif;
+    color: black;
+}
+
+main {
+    color: black;
+    margin-top: 80px; /* Ajusta según el tamaño del navbar */
+    padding: 20px;  /* Espacio interno */
+}
