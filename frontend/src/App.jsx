@@ -62,7 +62,7 @@ function App() {
         }
     };
 
-// Comprar producto
+    // Comprar producto
     const handleBuyProduct = async (productId, quantity) => {
         try {
             const product = products.find(p => p._id === productId);
@@ -100,6 +100,22 @@ function App() {
         setSelectedProduct(null);
     };
 
+    // Buscar productos por cantidad
+    const handleSearchByQuantity = async (quantity) => {
+        const numericQuantity = Number(quantity);
+        if (isNaN(numericQuantity)) {
+            toast.error('La cantidad debe ser un número válido.');
+            return;
+        }
+
+        try {
+            const response = await axios.get(`http://localhost:5000/api/quantity?quantity=${numericQuantity}`);
+            setProducts(response.data);
+        } catch (error) {
+            toast.error('Error al buscar productos por cantidad.');
+        }
+    };
+
     return (
         <>
             <nav className="navbar navbar-dark bg-dark">
@@ -115,15 +131,26 @@ function App() {
                     onDeleteProduct={handleDeleteProduct}
                     onUpdateProduct={handleShowUpdateModal}
                     onBuyProduct={handleShowBuyModal}
+                    onSearchByQuantity={handleSearchByQuantity}
                 />
             </main>
 
             {showUpdateModal && selectedProduct && (
-                <UpdateProductModal showModal={showUpdateModal} product={selectedProduct} onClose={handleCloseUpdateModal} onUpdateProduct={handleUpdateProduct} />
+                <UpdateProductModal
+                    showModal={showUpdateModal}
+                    product={selectedProduct}
+                    onClose={handleCloseUpdateModal}
+                    onUpdateProduct={handleUpdateProduct}
+                />
             )}
 
             {showBuyModal && selectedProduct && (
-                <BuyProductModal showModal={showBuyModal} product={selectedProduct} onClose={handleCloseBuyModal} onBuySuccess={fetchProducts} />
+                <BuyProductModal
+                    showModal={showBuyModal}
+                    product={selectedProduct}
+                    onClose={handleCloseBuyModal}
+                    onBuySuccess={fetchProducts}
+                />
             )}
 
             <ToastContainer />

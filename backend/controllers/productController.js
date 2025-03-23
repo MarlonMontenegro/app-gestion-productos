@@ -79,8 +79,8 @@ export const deleteProduct = async (req, res) => {
 // Buy a product
 export const buyProduct = async (req, res) => {
     try {
-        const { quantity } = req.body;  // Obtén la cantidad del cuerpo de la solicitud
-        const productId = req.params.id;  // Obtén el ID del producto de los parámetros de la URL
+        const { quantity } = req.body;
+        const productId = req.params.id;
 
         // Find the product
         const product = await Product.findById(productId);
@@ -88,12 +88,10 @@ export const buyProduct = async (req, res) => {
             return res.status(404).json({ message: 'Producto no encontrado' });
         }
 
-        // Check if there is enough stock
         if (product.initialQuantity < quantity) {
             return res.status(400).json({ message: 'Stock insuficiente' });
         }
 
-        // Reduce the stock quantity
         product.initialQuantity -= quantity;
         await product.save();
 
@@ -104,11 +102,39 @@ export const buyProduct = async (req, res) => {
 };
 
 
+export const getProductsByQuantity = async (req, res) => {
+    const { quantity } = req.query;
+
+    const numericQuantity = Number(quantity);
+
+    if (isNaN(numericQuantity)) {
+        return res.status(400).json({ message: 'La cantidad debe ser un número válido.' });
+    }
+
+    try {
+
+        const products = await Product.find({ initialQuantity: { $gte: numericQuantity } });
+
+        if (products.length === 0) {
+            return res.status(404).json({ message: 'No se encontraron productos con la cantidad especificada.' });
+        }
+
+        res.status(200).json(products);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Error al obtener los productos por cantidad.' });
+    }
+};
+
+
+
+
 export default {
     createProduct,
     getProducts,
     getProductById,
     updateProduct,
     deleteProduct,
-    buyProduct
+    buyProduct,
+    getProductsByQuantity
 };
