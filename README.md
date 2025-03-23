@@ -97,13 +97,10 @@ Ahora el backend debería estar corriendo en `http://localhost:5000`.
 
 Aquí puedes agregar capturas de pantalla o imágenes del proyecto.
 
-* **Página principal**:
-
-    ![Página principal](ruta/a/la/imagen_principal.png)
-
 * **Formulario de agregar producto**:
 
-    ![Formulario agregar producto](![SaveProducts](https://github.com/user-attachments/assets/37789c35-3749-405e-97fb-0feada08ce7f))
+    ![SaveProducts](https://github.com/user-attachments/assets/c342c18f-fef9-4b73-b823-ef78b8c10556)
+
 
 * **Lista de productos**:
 
