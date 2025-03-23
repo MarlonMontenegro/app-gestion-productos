@@ -29,6 +29,29 @@ Este es un proyecto de gestión de productos e inventarios, donde los usuarios p
 * **API de notificaciones**: React Toastify
 * **Otros**: React Hooks (useState, useEffect) para manejar el estado.
 
+
+## Imágenes
+
+
+* **Formulario de agregar producto**:
+
+    ![SaveProducts](https://github.com/user-attachments/assets/c342c18f-fef9-4b73-b823-ef78b8c10556)
+
+
+* **Editar Productos**:
+
+   ![UpdateProducts](https://github.com/user-attachments/assets/0ce6111d-7d51-49f3-99d6-473f5df430c5)
+
+
+* **Ejemplo de búsqueda**:
+
+    ![SearchProducts](https://github.com/user-attachments/assets/69bdf4b9-f2b5-463f-bde2-b7ad6c48fbe2)
+
+* **Eliminar Productos**:
+  
+    ![DeleteProducts](https://github.com/user-attachments/assets/4ff7f4c9-5c87-4683-8cf2-9d3f3d0f122b)
+
+
 ## Instalación
 
 Sigue estos pasos para clonar el repositorio y poner en marcha el proyecto localmente:
@@ -93,21 +116,6 @@ Sigue estos pasos para clonar el repositorio y poner en marcha el proyecto local
 
 Ahora el backend debería estar corriendo en `http://localhost:5000`.
 
-## Imágenes
-
-Aquí puedes agregar capturas de pantalla o imágenes del proyecto.
-
-* **Formulario de agregar producto**:
-
-    ![SaveProducts](https://github.com/user-attachments/assets/c342c18f-fef9-4b73-b823-ef78b8c10556)
 
 
-* **Lista de productos**:
 
-    ![Lista de productos](ruta/a/la/imagen_lista_productos.png)
-
-* **Ejemplo de búsqueda**:
-
-    ![Ejemplo de búsqueda](ruta/a/la/imagen_busqueda.png)
-
-Asegúrate de reemplazar `ruta/a/la/imagen_principal.png`, etc., con las rutas reales de tus imágenes. Si quieres, puedes añadir más imágenes para mostrar las distintas funcionalidades del proyecto.
