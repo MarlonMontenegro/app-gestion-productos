@@ -42,6 +42,9 @@ Este es un proyecto de gestión de productos e inventarios, donde los usuarios p
 
    ![UpdateProducts](https://github.com/user-attachments/assets/0ce6111d-7d51-49f3-99d6-473f5df430c5)
 
+* **Comprar productos**:
+* 
+  ![BuyProducts](https://github.com/user-attachments/assets/90844154-19e5-4c94-aaff-21c37d331770)
 
 * **Ejemplo de búsqueda**:
 
